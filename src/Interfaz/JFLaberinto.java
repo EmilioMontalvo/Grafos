@@ -72,15 +72,18 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 if(val[i][j]==1){
                                     banderaInicio=false;
                                 }
-                                if(val[i][j]==0){
+                                if(val[i][j]==2){
                                     banderaFin=false;
                                 }
+                                laberinto[i][j].setIcon(null);
                                 laberinto[i][j].setBackground(Color.white);
                                 val[i][j]=tipo;
                                 System.out.println(tipo);
                                 break;
                             case 1://inicio
-                                
+                                if(val[i][j]==2){
+                                    banderaFin=false;
+                                }
                                 if (banderaInicio) {
                                     JOptionPane.showMessageDialog(null,"Ya existe un inicio");  
                                 }else{
@@ -94,6 +97,9 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 
                                 break;
                             case 2://final
+                                if(val[i][j]==1){
+                                    banderaInicio=false;
+                                }
                                 if (banderaFin) {
                                     JOptionPane.showMessageDialog(null,"Ya existe un fin");  
                                 }else{
@@ -106,6 +112,13 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 break;
                             
                             case 5:
+                                if(val[i][j]==1){
+                                    banderaInicio=false;
+                                }
+                                if(val[i][j]==2){
+                                    banderaFin=false;
+                                }
+                                laberinto[i][j].setIcon(null);
                                 laberinto[i][j].setBackground(Color.black);
                                 val[i][j]=tipo;
                                 System.out.println(tipo);
