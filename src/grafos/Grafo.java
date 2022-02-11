@@ -25,7 +25,7 @@ public class Grafo {
 	}
 
 	/**
-	 * Add a new vertex nombre with no neighbors (if vertex does not yet exist)
+	 * Añade un nodo sin vecinos (si esque aun no existen nodos)
 	 * 
 	 * @param name vertex to be added
 	 */
