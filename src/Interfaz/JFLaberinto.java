@@ -8,6 +8,8 @@ package Interfaz;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -25,6 +27,8 @@ public class JFLaberinto extends javax.swing.JFrame {
     boolean banderaInicio=false;
     boolean banderaFin=false;
     int[][] val=new int[n][n];
+    ImageIcon raton = new ImageIcon(getClass().getResource("/Imagenes/ratonP.png"));
+    ImageIcon queso = new ImageIcon(getClass().getResource("/Imagenes/quesoP.png"));
     public JFLaberinto() {
         initComponents();
         setMatriz();
@@ -80,7 +84,9 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 if (banderaInicio) {
                                     JOptionPane.showMessageDialog(null,"Ya existe un inicio");  
                                 }else{
-                                    laberinto[i][j].setBackground(Color.red);
+                                    laberinto[i][j].setIcon(raton);
+                                    laberinto[i][j].setBackground(Color.white);
+                                    
                                     val[i][j]=tipo;
                                      System.out.println(tipo);
                                     banderaInicio=true;
@@ -91,7 +97,8 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 if (banderaFin) {
                                     JOptionPane.showMessageDialog(null,"Ya existe un fin");  
                                 }else{
-                                    laberinto[i][j].setBackground(Color.blue);
+                                    laberinto[i][j].setIcon(queso);
+                                    laberinto[i][j].setBackground(Color.white);
                                     val[i][j]=tipo;
                                     System.out.println(tipo);
                                     banderaFin=true;
@@ -154,6 +161,8 @@ public class JFLaberinto extends javax.swing.JFrame {
             .addGap(0, 401, Short.MAX_VALUE)
         );
 
+        jBInicio.setBackground(new java.awt.Color(255, 255, 255));
+        jBInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ratonP.png"))); // NOI18N
         jBInicio.setText("Inicio");
         jBInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +170,8 @@ public class JFLaberinto extends javax.swing.JFrame {
             }
         });
 
+        jBMuro.setBackground(new java.awt.Color(255, 255, 255));
+        jBMuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/muro.png"))); // NOI18N
         jBMuro.setText("Muro");
         jBMuro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,6 +179,8 @@ public class JFLaberinto extends javax.swing.JFrame {
             }
         });
 
+        jFin.setBackground(new java.awt.Color(255, 255, 255));
+        jFin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/quesoP.png"))); // NOI18N
         jFin.setText("Fin");
         jFin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,6 +188,8 @@ public class JFLaberinto extends javax.swing.JFrame {
             }
         });
 
+        jBBlanco.setBackground(new java.awt.Color(255, 255, 255));
+        jBBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/borrar.png"))); // NOI18N
         jBBlanco.setText("Borrar");
         jBBlanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,16 +197,27 @@ public class JFLaberinto extends javax.swing.JFrame {
             }
         });
 
+        jBCamino.setBackground(new java.awt.Color(255, 255, 255));
+        jBCamino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/foco.png"))); // NOI18N
         jBCamino.setText("Buscar Camino");
 
-        jBVaciar.setText("Vaciar Laberinto");
+        jBVaciar.setBackground(new java.awt.Color(255, 255, 255));
+        jBVaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/basuraP.png"))); // NOI18N
+        jBVaciar.setText("Vaciar");
         jBVaciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBVaciarActionPerformed(evt);
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salida.png"))); // NOI18N
         jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Agregar:");
 
@@ -202,30 +228,34 @@ public class JFLaberinto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(331, 331, 331)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(214, 214, 214)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPLaberinto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(81, 81, 81)
+                                        .addComponent(jBCamino))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jBVaciar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jBInicio)
-                                        .addGap(44, 44, 44)
+                                        .addGap(18, 18, 18)
                                         .addComponent(jBMuro)
-                                        .addGap(53, 53, 53)
-                                        .addComponent(jFin)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jBBlanco))
-                                    .addComponent(jPLaberinto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(63, 63, 63)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jBVaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
-                                    .addComponent(jBCamino))))))
-                .addContainerGap(49, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jFin)))
+                                .addGap(14, 14, 14)
+                                .addComponent(jBBlanco))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(331, 331, 331)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,16 +268,17 @@ public class JFLaberinto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBInicio)
                     .addComponent(jBMuro)
-                    .addComponent(jFin)
-                    .addComponent(jBBlanco))
+                    .addComponent(jBBlanco)
+                    .addComponent(jFin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBCamino)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jBVaciar)
-                        .addGap(49, 49, 49)
-                        .addComponent(jButton1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(24, 24, 24))
                     .addComponent(jPLaberinto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72))
         );
@@ -299,6 +330,10 @@ public class JFLaberinto extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBVaciarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(EXIT_ON_CLOSE);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
