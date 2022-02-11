@@ -9,18 +9,18 @@ import java.util.TreeSet;
 
 public class Grafo {
 	private HashMap<Nodo, TreeSet<Nodo>> listaDeAdjacencia;
-	private HashMap<String, Nodo> vertices;
+	private HashMap<String, Nodo> nodos;
 	private static final TreeSet<Nodo> EMPTY_SET = new TreeSet<Nodo>();
-	private int myNumVertices;
-	private int myNumEdges;
+	private int numNodos;
+	private int numAristas;
 
 	/**
 	 * Construct empty Graph
 	 */
 	public Grafo() {
 		listaDeAdjacencia = new HashMap<Nodo, TreeSet<Nodo>>();
-		vertices = new HashMap<String, Nodo>();
-		myNumVertices = myNumEdges = 0;
+		nodos = new HashMap<String, Nodo>();
+		numNodos = numAristas = 0;
 
 	}
 
@@ -29,14 +29,14 @@ public class Grafo {
 	 * 
 	 * @param name vertex to be added
 	 */
-	public Nodo addVertex(String name) {
+	public Nodo addNodo(String name) {
 		Nodo v;
-		v = vertices.get(name);
+		v = nodos.get(name);
 		if (v == null) {
 			v = new Nodo(name);
-			vertices.put(name, v);
+			nodos.put(name, v);
 			listaDeAdjacencia.put(v, new TreeSet<Nodo>());
-			myNumVertices += 1;
+			numNodos += 1;
 		}
 		return v;
 	}
@@ -44,56 +44,56 @@ public class Grafo {
 	/**
 	 * Returns the Nodo matching v
 	 * 
-	 * @param name a String nombre of a Nodo that may be in this Grafo
+	 * @param nombre a String nombre of a Nodo that may be in this Grafo
 	 * @return the Nodo with a nombre that matches v or null if no such Nodo
          exists in this Grafo
 	 */
-	public Nodo getVertex(String name) {
-		return vertices.get(name);
+	public Nodo getVertices(String nombre) {
+		return nodos.get(nombre);
 	}
 
 	/**
 	 * Returns true iff v is in this Grafo, false otherwise
 	 * 
-	 * @param name a String nombre of a Nodo that may be in this Grafo
+	 * @param nombre a String nombre of a Nodo that may be in this Grafo
 	 * @return true iff v is in this Grafo
 	 */
-	public boolean hasVertex(String name) {
-		return vertices.containsKey(name);
+	public boolean tieneNodo(String nombre) {
+		return nodos.containsKey(nombre);
 	}
 
 	/**
 	 * Is from-to, an edge in this Graph. The graph is undirected so the order of
 	 * from and to does not matter.
 	 * 
-	 * @param from the nombre of the first Nodo
-	 * @param to   the nombre of the second Nodo
-	 * @return true iff from-to exists in this Grafo
+	 * @param origen the nombre of the first Nodo
+	 * @param destino   the nombre of the second Nodo
+	 * @return true iff origen-destino exists in this Grafo
 	 */
-	public boolean hasEdge(String from, String to) {
+	public boolean tieneAristas(String origen, String destino) {
 
-		if (!hasVertex(from) || !hasVertex(to))
+		if (!tieneNodo(origen) || !tieneNodo(destino))
 			return false;
-		return listaDeAdjacencia.get(vertices.get(from)).contains(vertices.get(to));
+		return listaDeAdjacencia.get(nodos.get(origen)).contains(nodos.get(destino));
 	}
 
 	/**
 	 * Add to to from's set of neighbors, and add from to to's set of neighbors.
 	 * Does not add an edge if another edge already exists
 	 * 
-	 * @param from the nombre of the first Nodo
-	 * @param to   the nombre of the second Nodo
+	 * @param origen the nombre of the first Nodo
+	 * @param destino   the nombre of the second Nodo
 	 */
-	public void addEdge(String from, String to) {
+	public void addArista(String origen, String destino) {
 		Nodo v;
                 Nodo w;
-		if (hasEdge(from, to))
+		if (tieneAristas(origen, destino))
 			return;
-		myNumEdges += 1;
-		if ((v = getVertex(from)) == null)
-			v = addVertex(from);
-		if ((w = getVertex(to)) == null)
-			w = addVertex(to);
+		numAristas += 1;
+		if ((v = getVertices(origen)) == null)
+			v = addNodo(origen);
+		if ((w = getVertices(destino)) == null)
+			w = addNodo(destino);
 		listaDeAdjacencia.get(v).add(w);
 		listaDeAdjacencia.get(w).add(v);
 	}
@@ -105,10 +105,10 @@ public class Grafo {
 	 * @return an Iterator over Vertices that are adjacent to the Nodo named v,
          empty set if v is not in graph
 	 */
-	public Iterable<Nodo> adjacentTo(String name) {
-		if (!hasVertex(name))
+	public Iterable<Nodo> adjacenteA(String name) {
+		if (!tieneNodo(name))
 			return EMPTY_SET;
-		return listaDeAdjacencia.get(getVertex(name));
+		return listaDeAdjacencia.get(getVertices(name));
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class Grafo {
 	 * @return an Iterator over Vertices that are adjacent to the Nodo v, empty
          set if v is not in graph
 	 */
-	public Iterable<Nodo> adjacentTo(Nodo v) {
+	public Iterable<Nodo> adjacenteA(Nodo v) {
 		if (!listaDeAdjacencia.containsKey(v))
 			return EMPTY_SET;
 		return listaDeAdjacencia.get(v);
@@ -130,46 +130,24 @@ public class Grafo {
 	 * @return an Iterator over all Vertices in this Grafo
 	 */
 	public Iterable<Nodo> getVertices() {
-		return vertices.values();
+		return nodos.values();
 	}
 
-	public int numVertices() {
-		return myNumVertices;
+	public int numNodos() {
+		return numNodos;
 	}
 
-	public int numEdges() {
-		return myNumEdges;
+	public int numAristas() {
+		return numAristas;
 	}
 
-	/**
-	 * Sets each Vertices' centrality field to the degree of each Vertex (i.e. the
-	 * number of adjacent Vertices)
-	 */
-	public void degreeCentrality() {
-		// TODO: complete degreeCentrality
-	}
-
-	/**
-	 * Sets each Vertices' centrality field to the average distancia to every Nodo
-	 */
-	public void closenessCentrality() {
-		// TODO: complete closenessCentrality
-	}
-
-	/**
-	 * Sets each Vertices' centrality field to the proportion of geodesics (shortest
- paths) that this Nodo is on
-	 */
-	public void betweennessCentrality() {
-		// TODO: complete betweennessCentrality
-	}
-
+	
 	/*
 	 * Returns adjacency-list representation of graph
 	 */
 	public String toString() {
 		String s = "";
-		for (Nodo v : vertices.values()) {
+		for (Nodo v : nodos.values()) {
 			s += v + ": ";
 			for (Nodo w : listaDeAdjacencia.get(v)) {
 				s += w + " ";
@@ -190,8 +168,8 @@ public class Grafo {
 			FileWriter out = new FileWriter(fileName);
 			int count = 0;
 			out.write("nodedef> name,label,style,distance INTEGER\n");
-			// write vertices
-			for (Nodo v : vertices.values()) {
+			// write nodos
+			for (Nodo v : nodos.values()) {
 				String id = "v" + count++;
 				idToName.put(v, id);
 				out.write(id + "," + escapedVersion(v.nombre));
@@ -199,7 +177,7 @@ public class Grafo {
 			}
 			out.write("edgedef> node1,node2,color\n");
 			// write edges
-			for (Nodo v : vertices.values())
+			for (Nodo v : nodos.values())
 				for (Nodo w : listaDeAdjacencia.get(v))
 					if (v.compareTo(w) < 0) {
 						out.write(idToName.get(v) + "," + idToName.get(w) + ",");
@@ -227,7 +205,7 @@ public class Grafo {
                 
                 if (!cerrado.contains(x)){
                     cerrado.add(x);
-                    this.listaDeAdjacencia.get((Nodo)this.vertices.get(x));
+                    this.listaDeAdjacencia.get((Nodo)this.nodos.get(x));
                 }
             }
             
