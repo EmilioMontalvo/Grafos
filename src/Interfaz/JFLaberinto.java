@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,7 +28,7 @@ public class JFLaberinto extends javax.swing.JFrame {
     public JFLaberinto() {
         initComponents();
         setMatriz();
-        
+        this.setResizable(false);
         
     }
     
@@ -61,20 +62,46 @@ public class JFLaberinto extends javax.swing.JFrame {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     if (e.getSource().equals(laberinto[i][j])) {
-                        
+                         
                         switch(tipo){
-                            case 0:
+                            case 0://blanco
+                                if(val[i][j]==1){
+                                    banderaInicio=false;
+                                }
+                                if(val[i][j]==0){
+                                    banderaFin=false;
+                                }
                                 laberinto[i][j].setBackground(Color.white);
+                                val[i][j]=tipo;
+                                System.out.println(tipo);
                                 break;
-                            case 1:
-                                laberinto[i][j].setBackground(Color.red);
+                            case 1://inicio
+                                
+                                if (banderaInicio) {
+                                    JOptionPane.showMessageDialog(null,"Ya existe un inicio");  
+                                }else{
+                                    laberinto[i][j].setBackground(Color.red);
+                                    val[i][j]=tipo;
+                                     System.out.println(tipo);
+                                    banderaInicio=true;
+                                }
+                                
                                 break;
-                            case 2:
-                                laberinto[i][j].setBackground(Color.blue);
+                            case 2://final
+                                if (banderaFin) {
+                                    JOptionPane.showMessageDialog(null,"Ya existe un fin");  
+                                }else{
+                                    laberinto[i][j].setBackground(Color.blue);
+                                    val[i][j]=tipo;
+                                    System.out.println(tipo);
+                                    banderaFin=true;
+                                }
                                 break;
                             
                             case 5:
                                 laberinto[i][j].setBackground(Color.black);
+                                val[i][j]=tipo;
+                                System.out.println(tipo);
                                 break;
                         }
                         
@@ -243,7 +270,7 @@ public class JFLaberinto extends javax.swing.JFrame {
 
     private void jBInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInicioActionPerformed
         tipo=1;
-        banderaInicio=true;
+        
         
     }//GEN-LAST:event_jBInicioActionPerformed
 
@@ -253,7 +280,7 @@ public class JFLaberinto extends javax.swing.JFrame {
 
     private void jFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFinActionPerformed
         tipo=2;
-        banderaFin=true;
+        
     }//GEN-LAST:event_jFinActionPerformed
 
     private void jBBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBlancoActionPerformed
@@ -261,7 +288,16 @@ public class JFLaberinto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBBlancoActionPerformed
 
     private void jBVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVaciarActionPerformed
-        setMatriz();
+        //int c=0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+            
+                laberinto[i][j].setBackground(Color.white);
+                val[i][j]=0;
+                //c++;
+                //System.out.println(c);
+            }
+        }
     }//GEN-LAST:event_jBVaciarActionPerformed
 
     /**
