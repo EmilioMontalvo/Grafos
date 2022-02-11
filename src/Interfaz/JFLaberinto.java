@@ -6,16 +6,23 @@
 package Interfaz;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
  *
  * @author HP
  */
+
+
 public class JFLaberinto extends javax.swing.JFrame {
 
     int n=8;
     JButton[][] laberinto;
+    int tipo=0;
+    boolean banderaInicio=false;
+    boolean banderaFin=false;
     int[][] val=new int[n][n];
     public JFLaberinto() {
         initComponents();
@@ -34,14 +41,49 @@ public class JFLaberinto extends javax.swing.JFrame {
                 laberinto[i][j].setBackground(Color.white);
                 laberinto[i][j].setBounds(x, y, 50, 50);
                 val[i][j]=0;
+                
+                ButtonController bt = new ButtonController();
+                laberinto[i][j].addActionListener(bt);
+                
                 jPLaberinto.add(laberinto[i][j]);
                 x+=47;
             }
             x=10;
             y+=47;
         }
+        
+       
     }
-    
+     private class ButtonController implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (e.getSource().equals(laberinto[i][j])) {
+                        
+                        switch(tipo){
+                            case 0:
+                                laberinto[i][j].setBackground(Color.white);
+                                break;
+                            case 1:
+                                laberinto[i][j].setBackground(Color.red);
+                                break;
+                            case 2:
+                                laberinto[i][j].setBackground(Color.blue);
+                                break;
+                            
+                            case 5:
+                                laberinto[i][j].setBackground(Color.black);
+                                break;
+                        }
+                        
+                    }
+                }
+            }
+        }
+            
+     }
     
 
     /**
@@ -56,6 +98,14 @@ public class JFLaberinto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPLaberinto = new javax.swing.JPanel();
+        jBInicio = new javax.swing.JButton();
+        jBMuro = new javax.swing.JButton();
+        jFin = new javax.swing.JButton();
+        jBBlanco = new javax.swing.JButton();
+        jBCamino = new javax.swing.JButton();
+        jBVaciar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +127,47 @@ public class JFLaberinto extends javax.swing.JFrame {
             .addGap(0, 401, Short.MAX_VALUE)
         );
 
+        jBInicio.setText("Inicio");
+        jBInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBInicioActionPerformed(evt);
+            }
+        });
+
+        jBMuro.setText("Muro");
+        jBMuro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBMuroActionPerformed(evt);
+            }
+        });
+
+        jFin.setText("Fin");
+        jFin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFinActionPerformed(evt);
+            }
+        });
+
+        jBBlanco.setText("Borrar");
+        jBBlanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBlancoActionPerformed(evt);
+            }
+        });
+
+        jBCamino.setText("Buscar Camino");
+
+        jBVaciar.setText("Vaciar Laberinto");
+        jBVaciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBVaciarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Salir");
+
+        jLabel2.setText("Agregar:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,16 +179,49 @@ public class JFLaberinto extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(214, 214, 214)
-                        .addComponent(jPLaberinto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(229, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jBInicio)
+                                        .addGap(44, 44, 44)
+                                        .addComponent(jBMuro)
+                                        .addGap(53, 53, 53)
+                                        .addComponent(jFin)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jBBlanco))
+                                    .addComponent(jPLaberinto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(63, 63, 63)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jBVaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
+                                    .addComponent(jBCamino))))))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                .addComponent(jPLaberinto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBInicio)
+                    .addComponent(jBMuro)
+                    .addComponent(jFin)
+                    .addComponent(jBBlanco))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBCamino)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBVaciar)
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton1))
+                    .addComponent(jPLaberinto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72))
         );
 
@@ -116,6 +240,29 @@ public class JFLaberinto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInicioActionPerformed
+        tipo=1;
+        banderaInicio=true;
+        
+    }//GEN-LAST:event_jBInicioActionPerformed
+
+    private void jBMuroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMuroActionPerformed
+        tipo=5;
+    }//GEN-LAST:event_jBMuroActionPerformed
+
+    private void jFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFinActionPerformed
+        tipo=2;
+        banderaFin=true;
+    }//GEN-LAST:event_jFinActionPerformed
+
+    private void jBBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBlancoActionPerformed
+        tipo=0;
+    }//GEN-LAST:event_jBBlancoActionPerformed
+
+    private void jBVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVaciarActionPerformed
+        setMatriz();
+    }//GEN-LAST:event_jBVaciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,7 +300,15 @@ public class JFLaberinto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBBlanco;
+    private javax.swing.JButton jBCamino;
+    private javax.swing.JButton jBInicio;
+    private javax.swing.JButton jBMuro;
+    private javax.swing.JButton jBVaciar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jFin;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPLaberinto;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
