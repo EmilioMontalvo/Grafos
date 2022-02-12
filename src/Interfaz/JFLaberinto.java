@@ -81,12 +81,16 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 System.out.println(tipo);
                                 break;
                             case 1://inicio
-                                if(val[i][j]==2){
-                                    banderaFin=false;
-                                }
+                                
                                 if (banderaInicio) {
                                     JOptionPane.showMessageDialog(null,"Ya existe un inicio");  
                                 }else{
+                                    if(val[i][j]==1){
+                                    banderaInicio=false;
+                                    }
+                                    if(val[i][j]==2){
+                                    banderaFin=false;
+                                    }
                                     laberinto[i][j].setIcon(raton);
                                     laberinto[i][j].setBackground(Color.white);
                                     
@@ -97,12 +101,16 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 
                                 break;
                             case 2://final
-                                if(val[i][j]==1){
-                                    banderaInicio=false;
-                                }
+                                
                                 if (banderaFin) {
                                     JOptionPane.showMessageDialog(null,"Ya existe un fin");  
                                 }else{
+                                    if(val[i][j]==1){
+                                    banderaInicio=false;
+                                    }
+                                    if(val[i][j]==2){
+                                    banderaFin=false;
+                                    }
                                     laberinto[i][j].setIcon(queso);
                                     laberinto[i][j].setBackground(Color.white);
                                     val[i][j]=tipo;
@@ -337,6 +345,7 @@ public class JFLaberinto extends javax.swing.JFrame {
             for (int j = 0; j < n; j++) {
             
                 laberinto[i][j].setBackground(Color.white);
+                laberinto[i][j].setIcon(null);
                 val[i][j]=0;
                 //c++;
                 //System.out.println(c);
