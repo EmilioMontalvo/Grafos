@@ -78,7 +78,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 laberinto[i][j].setIcon(null);
                                 laberinto[i][j].setBackground(Color.white);
                                 val[i][j]=tipo;
-                                System.out.println(tipo);
+                                //System.out.println(tipo);
                                 break;
                             case 1://inicio
                                 
@@ -95,7 +95,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                                     laberinto[i][j].setBackground(Color.white);
                                     
                                     val[i][j]=tipo;
-                                     System.out.println(tipo);
+                                     //System.out.println(tipo);
                                     banderaInicio=true;
                                 }
                                 
@@ -114,7 +114,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                                     laberinto[i][j].setIcon(queso);
                                     laberinto[i][j].setBackground(Color.white);
                                     val[i][j]=tipo;
-                                    System.out.println(tipo);
+                                    //System.out.println(tipo);
                                     banderaFin=true;
                                 }
                                 break;
@@ -129,7 +129,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 laberinto[i][j].setIcon(null);
                                 laberinto[i][j].setBackground(Color.black);
                                 val[i][j]=tipo;
-                                System.out.println(tipo);
+                                //System.out.println(tipo);
                                 break;
                         }
                         
@@ -341,6 +341,8 @@ public class JFLaberinto extends javax.swing.JFrame {
 
     private void jBVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVaciarActionPerformed
         //int c=0;
+        banderaFin=false;
+        banderaInicio=false;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
             
