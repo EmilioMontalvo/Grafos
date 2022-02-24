@@ -33,6 +33,7 @@ public class JFLaberinto extends javax.swing.JFrame {
         initComponents();
         setMatriz();
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         
     }
     
