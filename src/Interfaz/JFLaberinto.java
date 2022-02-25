@@ -5,6 +5,7 @@
  */
 package Interfaz;
 
+import Negocio.Laberinto;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,8 @@ public class JFLaberinto extends javax.swing.JFrame {
     int[][] val=new int[n][n];
     ImageIcon raton = new ImageIcon(getClass().getResource("/Imagenes/ratonP.png"));
     ImageIcon queso = new ImageIcon(getClass().getResource("/Imagenes/quesoP.png"));
+    int iniciox=-1;
+    int inicioy=-1;
     public JFLaberinto() {
         initComponents();
         setMatriz();
@@ -96,6 +99,8 @@ public class JFLaberinto extends javax.swing.JFrame {
                                     laberinto[i][j].setBackground(Color.white);
                                     
                                     val[i][j]=tipo;
+                                    iniciox=i;
+                                    inicioy=j;
                                      //System.out.println(tipo);
                                     banderaInicio=true;
                                 }
@@ -223,6 +228,11 @@ public class JFLaberinto extends javax.swing.JFrame {
         jBCamino.setBackground(new java.awt.Color(255, 255, 255));
         jBCamino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/foco.png"))); // NOI18N
         jBCamino.setText("Buscar Camino");
+        jBCamino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCaminoActionPerformed(evt);
+            }
+        });
 
         jBVaciar.setBackground(new java.awt.Color(255, 255, 255));
         jBVaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/basuraP.png"))); // NOI18N
@@ -358,6 +368,14 @@ public class JFLaberinto extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jBCaminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCaminoActionPerformed
+        /*Laberinto laberinto = new Laberinto();
+        laberinto.maze=val;
+        
+        laberinto.resolver(0, 0);
+        System.out.println(laberinto);*/
+    }//GEN-LAST:event_jBCaminoActionPerformed
 
     /**
      * @param args the command line arguments
