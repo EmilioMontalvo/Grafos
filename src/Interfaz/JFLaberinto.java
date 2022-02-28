@@ -5,7 +5,9 @@
  */
 package Interfaz;
 
+import Negocio.Animacion;
 import Negocio.Laberinto;
+import Negocio.LaberintoHilo;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,13 +37,16 @@ public class JFLaberinto extends javax.swing.JFrame {
     ImageIcon queso = new ImageIcon(getClass().getResource("/Imagenes/quesoP.png"));
     int iniciox=-1;
     int inicioy=-1;
+    int finx=-1;
+    int finy=-1;
+    Animacion h;
    
     public JFLaberinto() {
         initComponents();
         setMatriz();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        
+        this.jBReiniciar.setVisible(false);
     }
     
     public void setMatriz(){
@@ -82,7 +87,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                         break;
                     case 2:
                         laberinto[i][j].setIcon(queso);
-                        laberinto[i][j].setBackground(Color.yellow);
+                        laberinto[i][j].setBackground(Color.white);
                         break;
                     case 3:
                         laberinto[i][j].setIcon(null);
@@ -153,6 +158,8 @@ public class JFLaberinto extends javax.swing.JFrame {
                                     laberinto[i][j].setIcon(queso);
                                     laberinto[i][j].setBackground(Color.white);
                                     val[i][j]=tipo;
+                                    finx=i;
+                                    finy=j;
                                     //System.out.println(tipo);
                                     banderaFin=true;
                                 }
@@ -198,8 +205,9 @@ public class JFLaberinto extends javax.swing.JFrame {
         jBBlanco = new javax.swing.JButton();
         jBCamino = new javax.swing.JButton();
         jBVaciar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jBSalir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jBReiniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Laberinto");
@@ -276,16 +284,25 @@ public class JFLaberinto extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salida.png"))); // NOI18N
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBSalir.setBackground(new java.awt.Color(255, 255, 255));
+        jBSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salida.png"))); // NOI18N
+        jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBSalirActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Agregar:");
+
+        jBReiniciar.setBackground(new java.awt.Color(255, 255, 255));
+        jBReiniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras-en-el-tiempo.png"))); // NOI18N
+        jBReiniciar.setText("Reiniciar");
+        jBReiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBReiniciarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -306,7 +323,8 @@ public class JFLaberinto extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jBVaciar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(jBSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBReiniciar, javax.swing.GroupLayout.Alignment.TRAILING)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -339,11 +357,13 @@ public class JFLaberinto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBReiniciar)
+                        .addGap(26, 26, 26)
                         .addComponent(jBCamino)
                         .addGap(18, 18, 18)
                         .addComponent(jBVaciar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(jBSalir)
                         .addGap(24, 24, 24))
                     .addComponent(jPLaberinto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72))
@@ -398,51 +418,61 @@ public class JFLaberinto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBVaciarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         System.exit(EXIT_ON_CLOSE);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBCaminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCaminoActionPerformed
-     if(banderaFin & banderaInicio){  
+
+    if(banderaFin & banderaInicio){  
+       
+       
        int[][]matriz=new int[n][n];
+       //int[][]aux=new int[n][n];
        for (int x=0; x<val.length; x++) {
             for (int y=0; y<val[0].length; y++) {
                 matriz[x][y]=val[x][y];
+                //aux[x][y]=val[x][y];
             }
        }
        
+       //Laberinto laux=new Laberinto(aux);
+      
        Laberinto l=new Laberinto(matriz);
        
-       for (int x=0; x<val.length; x++) {
-            for (int y=0; y<val[0].length; y++) {
-                System.out.append(val[x][y] + " ");
-            }
-            System.out.append("\n");
-        }
-       
-       
-       
-        System.out.println(iniciox+" "+inicioy);
+         h=new Animacion(laberinto, n, raton, queso, l, iniciox, inicioy);
+         h.start();
         
-        System.out.println(val[iniciox][inicioy]);
-       int[][] resuelta=l.resolver(iniciox, inicioy);
+         
+         
+       jBCamino.setEnabled(false);
+       jBVaciar.setEnabled(false);
+       jBInicio.setEnabled(false);
+       jBSalir.setEnabled(false);
+       jBMuro.setEnabled(false);
+       jFin.setEnabled(false);
+       jBBlanco.setEnabled(false);
+       jBReiniciar.setVisible(true);
        
-       for (int x=0; x<resuelta.length; x++) {
-            for (int y=0; y<resuelta[0].length; y++) {
-                System.out.append(resuelta[x][y] + " ");
-            }
-            System.out.append("\n");
-        }
-        System.out.println("Llamadas de la funcion: " + l.contador);
+         
        
-        resuelta[iniciox][inicioy]=1;
-        setMatriz(resuelta);
-        
-        imprimirPasos(l);
      }else{
          JOptionPane.showMessageDialog(null,"Debe coloar el fin e inicio");
      }
     }//GEN-LAST:event_jBCaminoActionPerformed
+
+    private void jBReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBReiniciarActionPerformed
+        h.stop();
+        setMatriz(val);
+        jBCamino.setEnabled(true);
+       jBVaciar.setEnabled(true);
+       jBInicio.setEnabled(true);
+       jBSalir.setEnabled(true);
+       jBMuro.setEnabled(true);
+       jFin.setEnabled(true);
+       jBBlanco.setEnabled(true);
+       jBReiniciar.setVisible(false);
+    }//GEN-LAST:event_jBReiniciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -479,35 +509,28 @@ public class JFLaberinto extends javax.swing.JFrame {
         });
     }
     /*
-    public static void esperar(long segundos){
-        try {
-            Thread.sleep(segundos * 1000);
-         } catch (Exception e) {
-            System.out.println(e);
-         }
-    }   */
-    
-    public void imprimirPasos(Laberinto m){
-        for (int[][] o:m.getPasos()){
-            for (int x=0; x<o.length; x++) {
-            for (int y=0; y<o[0].length; y++) {
-                System.out.append(o[x][y] + " ");
-            }
-            System.out.append("\n");
-        }
-            System.out.println("\n");
-            
-    }
+    public boolean hayCamino(int[][]m,int finx,int finy){
         
+        //muros arriba
+        for (int i = 0; i < m.length; i++) {
+            
+        }
+        
+        
+        
+        return false;
     }
+   
+   */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBlanco;
     private javax.swing.JButton jBCamino;
     private javax.swing.JButton jBInicio;
     private javax.swing.JButton jBMuro;
+    private javax.swing.JButton jBReiniciar;
+    private javax.swing.JButton jBSalir;
     private javax.swing.JButton jBVaciar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jFin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -195,6 +195,7 @@ public class Laberinto {
         System.out.println("Llamadas de la funcion: " + m.contador);
         */
         
+        System.out.println(Objects.isNull(matrizResuelta));
         for (int[][] o:m.getPasos()){
             for (int x=0; x<o.length; x++) {
             for (int y=0; y<o[0].length; y++) {
