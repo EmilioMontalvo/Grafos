@@ -9,6 +9,9 @@ import Negocio.Laberinto;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.Animation;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +35,7 @@ public class JFLaberinto extends javax.swing.JFrame {
     ImageIcon queso = new ImageIcon(getClass().getResource("/Imagenes/quesoP.png"));
     int iniciox=-1;
     int inicioy=-1;
+   
     public JFLaberinto() {
         initComponents();
         setMatriz();
@@ -62,6 +66,35 @@ public class JFLaberinto extends javax.swing.JFrame {
         }
         
        
+    }
+    
+    private void setMatriz(int[][] matriz){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                switch(matriz[i][j]){
+                    case 0:
+                        laberinto[i][j].setIcon(null);
+                        laberinto[i][j].setBackground(Color.white);
+                        break;
+                    case 1:
+                        laberinto[i][j].setIcon(raton);
+                        laberinto[i][j].setBackground(Color.white);
+                        break;
+                    case 2:
+                        laberinto[i][j].setIcon(queso);
+                        laberinto[i][j].setBackground(Color.yellow);
+                        break;
+                    case 3:
+                        laberinto[i][j].setIcon(null);
+                        laberinto[i][j].setBackground(Color.yellow);
+                        break;
+                    case 5:
+                        laberinto[i][j].setIcon(null);
+                        laberinto[i][j].setBackground(Color.black);
+                        break;
+                }
+            }
+        }
     }
      private class ButtonController implements ActionListener{
 
@@ -370,11 +403,45 @@ public class JFLaberinto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jBCaminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCaminoActionPerformed
-        /*Laberinto laberinto = new Laberinto();
-        laberinto.maze=val;
+     if(banderaFin & banderaInicio){  
+       int[][]matriz=new int[n][n];
+       for (int x=0; x<val.length; x++) {
+            for (int y=0; y<val[0].length; y++) {
+                matriz[x][y]=val[x][y];
+            }
+       }
+       
+       Laberinto l=new Laberinto(matriz);
+       
+       for (int x=0; x<val.length; x++) {
+            for (int y=0; y<val[0].length; y++) {
+                System.out.append(val[x][y] + " ");
+            }
+            System.out.append("\n");
+        }
+       
+       
+       
+        System.out.println(iniciox+" "+inicioy);
         
-        laberinto.resolver(0, 0);
-        System.out.println(laberinto);*/
+        System.out.println(val[iniciox][inicioy]);
+       int[][] resuelta=l.resolver(iniciox, inicioy);
+       
+       for (int x=0; x<resuelta.length; x++) {
+            for (int y=0; y<resuelta[0].length; y++) {
+                System.out.append(resuelta[x][y] + " ");
+            }
+            System.out.append("\n");
+        }
+        System.out.println("Llamadas de la funcion: " + l.contador);
+       
+        resuelta[iniciox][inicioy]=1;
+        setMatriz(resuelta);
+        
+        imprimirPasos(l);
+     }else{
+         JOptionPane.showMessageDialog(null,"Debe coloar el fin e inicio");
+     }
     }//GEN-LAST:event_jBCaminoActionPerformed
 
     /**
@@ -410,6 +477,28 @@ public class JFLaberinto extends javax.swing.JFrame {
                 new JFLaberinto().setVisible(true);
             }
         });
+    }
+    /*
+    public static void esperar(long segundos){
+        try {
+            Thread.sleep(segundos * 1000);
+         } catch (Exception e) {
+            System.out.println(e);
+         }
+    }   */
+    
+    public void imprimirPasos(Laberinto m){
+        for (int[][] o:m.getPasos()){
+            for (int x=0; x<o.length; x++) {
+            for (int y=0; y<o[0].length; y++) {
+                System.out.append(o[x][y] + " ");
+            }
+            System.out.append("\n");
+        }
+            System.out.println("\n");
+            
+    }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
