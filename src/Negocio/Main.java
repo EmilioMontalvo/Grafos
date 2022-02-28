@@ -5,6 +5,8 @@
  */
 package Negocio;
 
+import Interfaz.JFLaberinto;
+
 /**
  *
  * @author HP
@@ -15,9 +17,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-
-        //HOLA
+        JFLaberinto interfaz=new JFLaberinto();
+        interfaz.setVisible(true);
     }
     
 }

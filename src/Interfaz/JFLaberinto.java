@@ -7,7 +7,7 @@ package Interfaz;
 
 import Negocio.Animacion;
 import Negocio.Laberinto;
-import Negocio.LaberintoHilo;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -57,7 +57,7 @@ public class Laberinto {
             
             return maze; // introduce en las coordenadas (x, y) la entrada
         }else{
-            return null;
+            return maze;
         }
         
     }
