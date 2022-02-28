@@ -57,7 +57,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                 laberinto[i][j]=new JButton();
                 
                 laberinto[i][j].setBackground(Color.white);
-                laberinto[i][j].setBounds(x, y, 50, 50);
+                laberinto[i][j].setBounds(x, y, 48, 48);
                 val[i][j]=0;
                 
                 ButtonController bt = new ButtonController();
