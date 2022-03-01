@@ -20,7 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * AAABBBCCC
  * @author HP
  */
 
