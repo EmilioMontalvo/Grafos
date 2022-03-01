@@ -20,8 +20,13 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- * AAABBBCCC
- * @author HP
+ * Una clase para representar una interfaz gráfica que corresponde
+ * a un juego interactivo en donde el usuario puede construir un laberinto
+ * a voluntad, de forma que al distribuir sus elementos (ratón (inicio),queso(llegada),
+ * muros (celdas inalcanzables) y celdas vacías), el usuario cuenta con la funcionalidad 
+ * de encontrar el mejor camino posible (más óptimo). 
+ * @version 1.0, 28/02/22
+ * @author Leines Eduardo, Montalvo Emilio, Matute Israel
  */
 
 
