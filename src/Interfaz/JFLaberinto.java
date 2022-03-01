@@ -26,25 +26,26 @@ import javax.swing.JOptionPane;
  * muros (celdas inalcanzables) y celdas vacías), el usuario cuenta con la funcionalidad 
  * de encontrar el mejor camino posible (más óptimo). 
  * @version 1.0, 28/02/22
- * @author Leines Eduardo, Montalvo Emilio, Matute Israel
+ * @author Leines Eduardo, Montalvo Emilio, Matute Israel GR11
  */
 
 
 public class JFLaberinto extends javax.swing.JFrame {
 
-    int n=8;
-    JButton[][] laberinto;
-    int tipo=0;
-    boolean banderaInicio=false;
-    boolean banderaFin=false;
-    int[][] val=new int[n][n];
-    ImageIcon raton = new ImageIcon(getClass().getResource("/Imagenes/ratonP.png"));
-    ImageIcon queso = new ImageIcon(getClass().getResource("/Imagenes/quesoP.png"));
-    int iniciox=-1;
-    int inicioy=-1;
-    int finx=-1;
-    int finy=-1;
-    Animacion h;
+	//VARIABLES
+    int n=8;                        // Dimensión Filas-Columnas 
+    JButton[][] laberinto;          // Matriz de botónes para la construcción de celdas del laberinto
+    int tipo=0;                     // Entero de control del tipo de celda del laberinto
+    boolean banderaInicio=false;    // Booleano de Control de Inicio
+    boolean banderaFin=false;       // Booleano de Control de Final
+    int[][] val=new int[n][n];      // Matriz de valores asociados a cada cela del laberinto
+    ImageIcon raton = new ImageIcon(getClass().getResource("/Imagenes/ratonP.png")); // Icono correspondiente al ratón
+    ImageIcon queso = new ImageIcon(getClass().getResource("/Imagenes/quesoP.png")); // Icono correspondiente al queso
+    int iniciox=-1;					// Almacena la coordenada X inicial del ratón
+    int inicioy=-1;					// Almacena la coordenada Y inicial del ratón
+    int finx=-1;					// Almacena la coordenada X final del ratón
+    int finy=-1;					// Almacena la coordenada Y final del ratón
+    Animacion h;					// Generación de la Animación de la interfaz
    
     public JFLaberinto() {
         initComponents();
