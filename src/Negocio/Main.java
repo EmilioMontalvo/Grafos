@@ -8,12 +8,15 @@ package Negocio;
 import Interfaz.JFLaberinto;
 
 /**
- *
- * @author HP
+ * Clase Main que inicializa con la ejecución del programa
+ * @version 1.0, 28/02/22
+ * @author Leines Eduardo, Montalvo Emilio, Matute Israel GR11
  */
+
 public class Main {
 
     /**
+	 * Método Main() que crea el laberinto y tira la ventana del programa
      * @param args the command line arguments
      */
     public static void main(String[] args) {
