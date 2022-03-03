@@ -20,26 +20,41 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author HP
+ * Una clase para representar una interfaz gráfica que corresponde
+ * a un juego interactivo en donde el usuario puede construir un laberinto
+ * a voluntad, de forma que al distribuir sus elementos (ratón (inicio),queso(llegada),
+ * muros (celdas inalcanzables) y celdas vacías), el usuario cuenta con la funcionalidad 
+ * de encontrar el mejor camino posible (más óptimo). 
+ * @version 1.0, 28/02/22
+ * @author Leines Eduardo, Montalvo Emilio, Matute Israel GR11
  */
 
 
 public class JFLaberinto extends javax.swing.JFrame {
 
-    int n=8;
-    JButton[][] laberinto;
-    int tipo=0;
-    boolean banderaInicio=false;
-    boolean banderaFin=false;
-    int[][] val=new int[n][n];
-    ImageIcon raton = new ImageIcon(getClass().getResource("/Imagenes/ratonP.png"));
-    ImageIcon queso = new ImageIcon(getClass().getResource("/Imagenes/quesoP.png"));
-    int iniciox=-1;
-    int inicioy=-1;
-    int finx=-1;
-    int finy=-1;
-    Animacion h;
+	//VARIABLES
+    int n=8;                        // Dimensión Filas-Columnas 
+    JButton[][] laberinto;          // Matriz de botónes para la construcción de celdas del laberinto
+    int tipo=0;                     // Entero de control del tipo de celda del laberinto
+    boolean banderaInicio=false;    // Booleano de Control de Inicio
+    boolean banderaFin=false;       // Booleano de Control de Final
+    int[][] val=new int[n][n];      // Matriz de valores asociados a cada cela del laberinto
+    ImageIcon raton = new ImageIcon(getClass().getResource("/Imagenes/ratonP.png")); // Icono correspondiente al ratón
+    ImageIcon queso = new ImageIcon(getClass().getResource("/Imagenes/quesoP.png")); // Icono correspondiente al queso
+    int iniciox=-1;					// Almacena la coordenada X inicial del ratón
+    int inicioy=-1;					// Almacena la coordenada Y inicial del ratón
+    int finx=-1;					// Almacena la coordenada X final del ratón
+    int finy=-1;					// Almacena la coordenada Y final del ratón
+    Animacion h;					// Generación de la Animación de la interfaz
+   
+    //MÉTODOS PÚBLICOS
+
+    /*
+    * Constructor del Laberinto que incializa sus componentes, setea la Matriz y 
+    * establece la ventana como no redimensionable, posiciona la ventana
+	* y oculta por el momento la ventana jBReiniciar.
+    */
+   
    
     public JFLaberinto() {
         initComponents();
@@ -47,8 +62,15 @@ public class JFLaberinto extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.jBReiniciar.setVisible(false);
-    }
+    } //Fin del constructor
     
+	/**
+    * Método que setea la matriz con la dimensión n declarada en un inicio, 
+    * cada celda de la matriz (botón) es inicializada, se le otorgan propiedades
+    * como color y tamaño y además, se inicializa la matriz de valores asociados
+    * con una valor de 0 (estado: vacio= como incial). 
+    */
+	
     public void setMatriz(){
         int x=10,y=10;
         laberinto=new JButton[n][n];
@@ -68,10 +90,19 @@ public class JFLaberinto extends javax.swing.JFrame {
             }
             x=10;
             y+=47;
-        }
-        
-       
-    }
+        }   
+    }//Cierre del Mëtodo
+	
+	/**
+    * Método sobrecargado que  establece el icono y color de fondo 
+	* según el estado de cada celda.
+	* Estado 0 -> Color: Blanco¨
+	* Estado 1 -> Color: Blanco (Pto de Partida: Ratón)
+	* Estado 2 -> Color: Blanco (Pto de Llegada: Queso)
+	* Estado 3 -> Color: Amarillo (Recorrido)
+	* Estado 5 -> Color: Negro (Muro/Celda Inalcanzable)
+¨   * @param matriz
+    */
     
     private void setMatriz(int[][] matriz){
         for (int i = 0; i < n; i++) {
@@ -100,17 +131,31 @@ public class JFLaberinto extends javax.swing.JFrame {
                 }
             }
         }
-    }
+    }//Cierre del Mëtodo
+	
+	//CLASE PRIVADA
+    /**
+    * Una clase privada que implementa métodos con las acciones a tomar a partir
+    * de las acciones que el usuario realize sobre la interfaz. Para esto es 
+    * necesario la implementación del Interface Action Listener. 
+    */
+	
      private class ButtonController implements ActionListener{
 
         @Override
+		/**
+        * Método que establece las acciones que cada botón causa a partir de su interacción 
+        * con el usuario. 
+        * @param e
+        */
+		
         public void actionPerformed(ActionEvent e) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     if (e.getSource().equals(laberinto[i][j])) {
-                         
+                        //Se busca verificar el tipo y estado actual de la celda escogida por el usuario.  
                         switch(tipo){
-                            case 0://blanco
+                            case 0://blanco - celda vacia
                                 if(val[i][j]==1){
                                     banderaInicio=false;
                                 }
@@ -122,7 +167,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 val[i][j]=tipo;
                                 //System.out.println(tipo);
                                 break;
-                            case 1://inicio
+                            case 1://inicio - ratón
                                 
                                 if (banderaInicio) {
                                     JOptionPane.showMessageDialog(null,"Ya existe un inicio");  
@@ -144,7 +189,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 }
                                 
                                 break;
-                            case 2://final
+                            case 2://final - queso
                                 
                                 if (banderaFin) {
                                     JOptionPane.showMessageDialog(null,"Ya existe un fin");  
@@ -165,7 +210,7 @@ public class JFLaberinto extends javax.swing.JFrame {
                                 }
                                 break;
                             
-                            case 5:
+                            case 5://Muro - celda inalcanzble 
                                 if(val[i][j]==1){
                                     banderaInicio=false;
                                 }
@@ -182,15 +227,14 @@ public class JFLaberinto extends javax.swing.JFrame {
                     }
                 }
             }
-        }
+        }//Cierre del Método
             
-     }
+     }//Cierre de la Clase 
     
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * Este método al ser llamado por el constructor para inicilizar los
+     * componentes de la interfaz gráfica. 
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -382,26 +426,51 @@ public class JFLaberinto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+	//FIN DE MÉTODO
 
+    /**
+    * Método que setea el tipo celda como inicio / punto de paritda del ratón 
+    * @param evt
+    */
     private void jBInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInicioActionPerformed
         tipo=1;
         
         
     }//GEN-LAST:event_jBInicioActionPerformed
-
+    //FIN DE MÉTODO
+	
+    /**
+    * Método que setea el tipo celda como muro / celda inalcanzable
+    * @param evt
+    */	
     private void jBMuroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMuroActionPerformed
         tipo=5;
     }//GEN-LAST:event_jBMuroActionPerformed
-
+	//FIN DE MÉTODO
+	
+    /**
+    * Método que setea el tipo celda de llegada/ posición del queso
+    * @param evt
+    */	
     private void jFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFinActionPerformed
         tipo=2;
         
     }//GEN-LAST:event_jFinActionPerformed
-
+	//FIN DE MÉTODO
+	
+	/**
+    * Método que setea el tipo celda como vacia /disponible 
+    * @param evt
+    */
     private void jBBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBlancoActionPerformed
         tipo=0;
     }//GEN-LAST:event_jBBlancoActionPerformed
-
+    //FIN DE MÉTODO
+	
+    /**
+    * Método que vacia el tablero y reestablece el valor inicial de todas las celdas
+    * @param evt
+    */	
     private void jBVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVaciarActionPerformed
         //int c=0;
         banderaFin=false;
@@ -417,15 +486,26 @@ public class JFLaberinto extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBVaciarActionPerformed
-
+	//FIN DE MÉTODO
+	
+	/**
+    * Método para cerrar la ventana/finalizar el programa
+    * @param evt
+    */
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         System.exit(EXIT_ON_CLOSE);
     }//GEN-LAST:event_jBSalirActionPerformed
-
+	//FIN DE MÉTODO 
+	
+	/**
+    * Método para imprimir el camino más óptimo a tomar
+	* haciendo uso de la animación definida en un inicio. 
+    * @param evt
+    */
+	
     private void jBCaminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCaminoActionPerformed
 
-    if(banderaFin & banderaInicio){  
-       
+    if(banderaFin & banderaInicio){  //Si el camino fue completado
        
        int[][]matriz=new int[n][n];
        //int[][]aux=new int[n][n];
@@ -456,10 +536,16 @@ public class JFLaberinto extends javax.swing.JFrame {
        
          
        
-     }else{
+     }else{ //Warning
          JOptionPane.showMessageDialog(null,"Debe coloar el fin e inicio");
      }
     }//GEN-LAST:event_jBCaminoActionPerformed
+	//FIN DE METODO
+	
+	/**
+    * Método para reiniciar el programa y limpiar la interfaz 
+    * @param evt
+    */
 
     private void jBReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBReiniciarActionPerformed
         h.stop();
@@ -473,11 +559,16 @@ public class JFLaberinto extends javax.swing.JFrame {
        jBBlanco.setEnabled(true);
        jBReiniciar.setVisible(false);
     }//GEN-LAST:event_jBReiniciarActionPerformed
+	//FIN DE METODO
 
-    /**
+     /**
+     * El main() del programa desde donde se corre el programa 
      * @param args the command line arguments
      */
+	 
     public static void main(String args[]) {
+		//Nimbus es una apariencia multiplataforma de JAVA. 
+		//Nimnbus usa grafica de vectores 2D para la contrucción de la interfaz de usuario
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -503,6 +594,7 @@ public class JFLaberinto extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+			//Método que muestra la ventana de la interfaz dando inicio al programa
             public void run() {
                 new JFLaberinto().setVisible(true);
             }
@@ -523,6 +615,7 @@ public class JFLaberinto extends javax.swing.JFrame {
    
    */
 
+	//VARIABLES PRIVADAS
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBlanco;
     private javax.swing.JButton jBCamino;

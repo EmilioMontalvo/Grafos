@@ -14,20 +14,30 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author HP
+ * Clase Animación que permite la presentación animada de la solución encontrada 
+ * @version 1.0, 28/02/22
+ * @author Leines Eduardo, Montalvo Emilio, Matute Israel GR11
  */
 public class Animacion extends Thread{
-
-    int[][]sol;
-    JButton[][] laberinto;
-    int n;
-    Icon raton;
-    Icon queso;
-    Laberinto l;
-    int iniciox;
-    int inicioy;
-
+	//Variables
+    int[][]sol;				//Matriz solución 
+    JButton[][] laberinto;  //Matriz de botones/celdas
+    int n;					//dimensión matriz
+    Icon raton;				//Icono Ratón
+    Icon queso;				//Icono Queso
+    Laberinto l;			//Laberinto 
+    int iniciox;	        //Coordenada de inicio X
+    int inicioy;			//Coordenada de inicio y
+	/**
+	 * Constructor de Animación 
+	 * @param laberinto
+	 * @param n
+	 * @param raton
+	 * @param queso
+	 * @param l
+	 * @param iniciox
+	 * @param inicioy
+	 */
     public Animacion(JButton[][] laberinto, int n, Icon raton, Icon queso, Laberinto l, int iniciox, int inicioy) {
         this.laberinto = laberinto;
         this.n = n;
@@ -36,19 +46,22 @@ public class Animacion extends Thread{
         this.l = l;
         this.iniciox = iniciox;
         this.inicioy = inicioy;
-    }
-
+    } //Fin del Constructor
+	
+	//METODOS
   
-    
-    
-    
     @Override
+	/**
+	 * Método que busca la solución al laberinto teniendo en cuenta
+	 * el punto de partida. 
+	 */
     public void run() {
         int[][]sol=l.resolver(iniciox, inicioy);
         
                 
             for (int[][] x : l.getPasos()) {
             x[iniciox][inicioy]=1;
+			//Actualiza el laberinto con el cambio realizado según cada paso dado. 
             setMatriz(x);
             try {
                 Thread.sleep(750);
@@ -56,12 +69,17 @@ public class Animacion extends Thread{
                 Logger.getLogger(Animacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+		//Actualiza el laberinto con el cambio realizado final.  
         sol[iniciox][inicioy]=1;
         setMatriz(sol);
         
         
-    }
-    
+    }//Fin de Método 
+    /**
+	 * Método que construye una matriz según el estado actual de todos los objetos en 
+	 * cada paso realizado. 
+	 * @param matriz 
+	 */
   private void setMatriz(int[][] matriz){
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -89,7 +107,5 @@ public class Animacion extends Thread{
                 }
             }
         }
-    }
-    
-    
+    }//Fin de Método 
 }

@@ -11,47 +11,75 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- *
- * @author HP
+ * Clase Laberinto que con el uso de la técnica del backtracking busca 
+ * la solución más óptima. 
+ * @version 1.0, 28/02/22
+ * @author Leines Eduardo, Montalvo Emilio, Matute Israel GR11
  */
 public class Laberinto {
+	//VARIABLES
+	public int contador = 0; // Contador que va acumulamdo el número de celdas del cámino más óptimo
+    public int[][] maze;     // Matriz de recorrido del laberinto
+    ArrayList<int[][]> pasos;// Arreglo dinámico que almacena los pasos del camino
+    public boolean  encontro=false; //Booleano de control 
 
- public int contador = 0;
-    public int[][] maze;
-    ArrayList<int[][]> pasos;
-    public boolean  encontro=false;
-
+	/**
+    * Constructor del Laberinto que inicializa el arreglo dinámico y l amtriz
+¨   * @param laberinto
+    */
     public Laberinto(int[][] laberinto) {
         this.pasos = new ArrayList<>();
         this.maze = laberinto;
-    }
-
+    }//Fin de Método
+	/**
+    * Método get() para tomar el valor del contador
+¨   * @return contador
+    */
     public int getContador() {
         return contador;
-    }
-
+    }//Fin de Método
+	/**
+    * Método set() para establecer el valor del contador
+¨   * @param contador
+    */
     public void setContador(int contador) {
         this.contador = contador;
-    }
-
+    }//Fin de Método
+	/**
+    * Método get() para tomar la matriz de valores
+¨   * @return maze
+    */
     public int[][] getMaze() {
         return maze;
-    }
-
+    }//Fin de Método
+	/**
+    * Método set() para establecer la matriz de valores
+¨   * @return maze
+    */
     public void setMaze(int[][] maze) {
         this.maze = maze;
-    }
-
+    }//Fin de Método
+	/**
+    * Método para obtener el arreglo dinámico con los pasos obtenidos
+¨   * @return pasos
+    */
     public ArrayList<int[][]> getPasos() {
         return pasos;
-    }
-
+    }//Fin de Método
+	/**
+    * Método para establecer el arreglo dinámico con los pasos obtenidos
+¨   * @param pasos
+    */
     public void setPasos(ArrayList<int[][]> pasos) {
         this.pasos = pasos;
-    }
-    
-    
-    // Obtener la ubicación de inicio (x, y) e intentar resolver el laberinto
+    }//Fin de Método
+    /**
+    * Método para obtener la ubicación de inicio (x, y) e intentar resolver el laberinto
+¨   * @param x
+	* @param y
+	* @return maze
+    */
+    // Obtener 
     public int[][] resolver(int x, int y) {
 	if (paso(x,y)) {   // intentará resolver el laberinto en estas coordenadas
             
@@ -60,9 +88,17 @@ public class Laberinto {
             return maze;
         }
         
-    }
-
-    // Metodo Backtracking
+    }//Fin de Método
+	/**
+    * Método de empleo de la técnica de backtracking para la obtención del camino más óptimo-
+	* Este método hace uso de la recursividad para su fin. 
+¨   * @param x
+	* @param y
+	* @return <ul>
+     *  <li>true: Se llegó a un estado de éxito</li>
+     *  <li>false: Se llegó a un estado de fallo</li>
+     *  </ul>
+    */	
     public boolean paso(int x, int y) {
 		
 	contador++;
@@ -127,8 +163,14 @@ public class Laberinto {
     	// considerar que en este punto, todas las llamadas recursivas han finalizado. Si en ninguna de ellas
     	// se ha conseguido el éxito, entonces el algoritmo termina y devuelve false.
         return false;
-    }
+    }//Fin de Método
     
+	/**
+    * Método para la creación de una nueva matriz actualizada con los nuevos cambios realizados
+	* en ella (Camino marcado). 
+¨   * @param matriz
+	* @return encontro
+    */
     
     public void addMatriz(int[][]matriz) {
         
@@ -139,17 +181,22 @@ public class Laberinto {
             }
         }
         pasos.add(nuevo);
-    }
+    }//Fin de Método
+	
+	/**
+    * Método para retornar el estado de llegado o no.
+	* @return encontro
+    */
     
     public boolean salida(){
         
         return this.encontro;
-    }
+    }//Fin de Método
    
 
     /**
-     *
-     * @return
+     * Método toString() que contiene la representación de la matriz. 
+     * @return salida
      */
     @Override
     public String toString() {
@@ -161,8 +208,13 @@ public class Laberinto {
             salida += "\n";
         }
         return salida;
-    }
-    
+    }//Fin de Método
+    /**
+     * Método main() que contiene la representación de una matriz inicial 
+	 * y la inicialización de la matriz resultante.
+	 * @param args
+     * @return salida
+     */
     public static void main(String[] args) {
         int[][] matrizInicial = {{5, 5, 5, 5, 5, 5, 5, 5},
 			{5, 0, 0, 0, 5, 0, 5, 0},
@@ -205,5 +257,5 @@ public class Laberinto {
         }
         System.out.println("Llamadas de la funcion: " + m.contador);
         }
-    }
-}
+    }//Fin de Método
+}//Fin de Clase
