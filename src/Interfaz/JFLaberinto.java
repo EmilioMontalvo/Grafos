@@ -537,7 +537,7 @@ public class JFLaberinto extends javax.swing.JFrame {
          
        
      }else{ //Warning
-         JOptionPane.showMessageDialog(null,"Debe coloar el fin e inicio");
+         JOptionPane.showMessageDialog(null,"Debe colocar el fin e inicio");
      }
     }//GEN-LAST:event_jBCaminoActionPerformed
 	//FIN DE METODO
