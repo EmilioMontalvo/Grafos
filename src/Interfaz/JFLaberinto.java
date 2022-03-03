@@ -565,7 +565,7 @@ public class JFLaberinto extends javax.swing.JFrame {
      * El main() del programa desde donde se corre el programa 
      * @param args the command line arguments
      */
-	 
+	
     public static void main(String args[]) {
 		//Nimbus es una apariencia multiplataforma de JAVA. 
 		//Nimnbus usa grafica de vectores 2D para la contrucción de la interfaz de usuario

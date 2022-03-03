@@ -215,11 +215,12 @@ public class Laberinto {
 	 * @param args
      * @return salida
      */
+    
     public static void main(String[] args) {
         int[][] matrizInicial = {{5, 5, 5, 5, 5, 5, 5, 5},
 			{5, 0, 0, 0, 5, 0, 5, 0},
 			{5, 1, 0, 0, 5, 5, 5, 0},
-			{5, 0, 0, 0, 5, 2, 5, 0},
+			{5, 0, 0, 0, 0, 2, 5, 0},
 			{5, 0, 0, 0, 5, 5, 5, 0},
 			{5, 5, 5, 0, 0, 0, 0, 0},
 			{5, 0, 0, 0, 0, 5, 5, 5},
